@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Gallery</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .gallery-item {
+    width: 210px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50px;
+    left: 0;
+  }
+  .image-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    overflow: hidden;
+  }
+  .site-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="site-title">Textinput Vault</div>
+<div class="gallery-container" id="gallery"></div>
+
+<script>
+// Sample list of images and gifs. You should replace this with the actual file names.
+const images = ['15.gif', '2.gif', '3.gif', '4.gif', '5.gif', '13.gif'];
+
+function loadImages() {
+  const gallery = document.getElementById('gallery');
+  images.forEach(image => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `<div class="image-title">${image}</div><img src="media/${image}" alt="${image}">`;
+    gallery.appendChild(item);
+  });
+}
+
+// function loadImages() {
+//   fetch('listImages.php')
+//     .then(response => response.json())
+//     .then(data => {
+//       const gallery = document.getElementById('gallery');
+//       data.forEach(image => {
+//         const item = document.createElement('div');
+//         item.className = 'gallery-item';
+//         item.innerHTML = `<div class="image-title">${image}</div><img src="media/${image}" alt="${image}">`;
+//         gallery.appendChild(item);
+//       });
+//     })
+//     .catch(error => console.error('Error loading the image list:', error));
+// }
+
+// function loadImages() {
+//   fetch('imageList.json')
+//     .then(response => response.json())
+//     .then(data => {
+//       const gallery = document.getElementById('gallery');
+//       data.forEach(image => {
+//         const item = document.createElement('div');
+//         item.className = 'gallery-item';
+//         item.innerHTML = `<div class="image-title">${image}</div><img src="media/${image}" alt="${image}">`;
+//         gallery.appendChild(item);
+//       });
+//     })
+//     .catch(error => console.error('Error loading the image list:', error));
+// }
+
+window.onload = loadImages;
+</script>
+
+</body>
+</html>

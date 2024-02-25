@@ -1,0 +1,79 @@
+{
+  "name": "zoomwall.js",
+  "type": "module",
+  "version": "2.1.1",
+  "description": "A content-focused photo gallery using a horizontal masonry layout that scales up in lightbox mode.",
+  "main": "./lib/zoomwall.js",
+  "types": "./lib/zoomwall.d.ts",
+  "files": [
+    "lib/zoomwall.js",
+    "lib/zoomwall.css"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "source-map": "tsc --sourceMap --project tsconfig.json",
+    "copy": "copyfiles -u 1 \"./src/zoomwall.css\" lib",
+    "docs": "typedoc --out docs src/zoomwall.ts",
+    "gpr-package-rename": "node scripts/gpr-package-rename.cjs",
+    "lint-js": "eslint \"**/*.{ts,js,mjs,cjs}\"",
+    "lint-css": "stylelint \"**/*.css\"",
+    "lint": "concurrently \"npm:lint-*\"",
+    "format-check": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "cross-env JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "cover:test": "cross-env JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "cover:patch": "node scripts/patch-puppeteer-istanbul-output.js",
+    "cover:copy:map": "npx copyfiles \"lib/*.map\" \"./.nyc_output/js\"",
+    "cover:copy:src": "npx copyfiles \"src/*.ts\" \"./.nyc_output/js\"",
+    "cover:report": "nyc report --reporter=lcov --exclude-after-remap=false",
+    "cover:all": "npm run source-map && npm run cover:copy:map && npm run cover:copy:src && npm run cover:test && npm run cover:patch && npm run cover:report",
+    "prepare": "concurrently \"npm:build\" \"npm:copy\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericleong/zoomwall.js.git"
+  },
+  "keywords": [
+    "photo",
+    "gallery",
+    "lightbox"
+  ],
+  "author": "me@ericleong.me",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ericleong/zoomwall.js/issues"
+  },
+  "homepage": "https://github.com/ericleong/zoomwall.js#readme",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/expect-puppeteer": "^5.0.0",
+    "@types/jest": "^27.0.0",
+    "@types/jest-environment-puppeteer": "^5.0.0",
+    "@types/puppeteer": "^5.4.4",
+    "@types/ws": "^8.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "concurrently": "^7.0.0",
+    "copyfiles": "^2.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.1.0",
+    "expect-puppeteer": "^6.0.0",
+    "jest": "^26.4.0",
+    "jest-dev-server": "^6.0.0",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
+    "jest-puppeteer": "^6.0.0",
+    "nyc": "^15.1.0",
+    "prettier": "2.7.1",
+    "puppeteer": "^17.0.0",
+    "puppeteer-to-istanbul": "github:skerit/puppeteer-to-istanbul#d0ebc44",
+    "source-map-support": "^0.5.19",
+    "stylelint": "^14.5.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^29.0.0",
+    "ts-jest": "^26.1.4",
+    "ts-node": "^10.0.0",
+    "typedoc": "0.23.17",
+    "typescript": "^4.2.3"
+  }
+}
