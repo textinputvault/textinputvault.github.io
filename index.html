@@ -1,60 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery with zoomwall.js</title>
-<link rel="stylesheet" type="text/css" href="zoomwall.css" />
-<style>
-  h1 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5em;
-  }
-
-  #gallery {
-    display: flex; /* Use flexbox to align items */
-    flex-wrap: wrap; /* Allow items to wrap as needed */
-    justify-content: center; /* Center items horizontally */
-    gap: 10px; /* Optional: adds a gap between images */
-    margin: 20px auto;
-    width: 90%; /* Adjust based on your preference */
-  }
-
-  #gallery img {
-    flex: 1 0 auto; /* Allows images to be flexible but not stretch */
-    max-width: 100%; /* Ensure images are not larger than their container */
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Zoomwall.js</title>
+    <link rel="stylesheet" href="zoomwall.css" />
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Adjust the space between images */
+        }
+        .gallery a {
+            flex: 1 0 21%; /* Adjust number for more or fewer columns */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .gallery a:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
 
-<h1>Textinput Vault</h1>
+<div class="gallery" id="gallery">
+    <!-- Repeat the block below for each image in your gallery -->
+    <a href="media/1.gif">
+        <img src="media/1.gif" alt="Controller point">
+    </a>
 
-<div id="gallery" class="zoomwall">
-  <!-- Images will be dynamically added here -->
+    <a href="media/2.gif">
+      <img src="media/2.gif" alt="Real keyboard">
+  </a>
+
+  <a href="media/3.gif">
+    <img src="media/3.gif" alt="Drupsticks">
+</a>
+
+<a href="media/4.gif">
+  <img src="media/4.gif" alt="Head tilt input">
+</a>
+
+    <!-- Add more images similarly -->
 </div>
 
 <script src="zoomwall.js"></script>
 <script>
-function loadImages() {
-  fetch('imageList.json')
-    .then(response => response.json())
-    .then(imageList => {
-      const gallery = document.getElementById('gallery');
-      imageList.forEach(imageName => {
-        const img = document.createElement('img');
-        img.src = `media/${imageName}`;
-        img.setAttribute('data-highres', `media/${imageName}`);
-        gallery.appendChild(img);
-      });
-
-      zoomwall.create(gallery, true);
-    })
-    .catch(error => console.error('Error loading image list:', error));
-}
-
-window.onload = loadImages;
+    window.onload = function() {
+        zoomwall.create(document.getElementById('gallery'), true);
+    };
 </script>
 
 </body>
