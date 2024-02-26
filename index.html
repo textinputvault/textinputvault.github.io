@@ -1,103 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Gallery with Zoomwall.js</title>
     <link rel="stylesheet" href="zoomwall.css" />
     <style>
 
-      :root {
-              --scale-factor: 0.65; /* Default scale factor */
-          }
-          
-          .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px; /* Adjust the space between images */
-        justify-content: center; /* Center items in the container */
-        position: relative; /* Required for positioning the overlay */
-    }
-    .gallery a {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: transform 0.2s ease-in-out, z-index 0.2s ease-in-out;
-        display: inline-flex; /* Change to inline-flex for a more organic layout */
-        margin: 5px; /* Optional: Adjust margin for spacing */
-        transform: scale(var(--scale-factor)); /* Use the scale factor here */
-        position: relative; /* Ensure z-index is applied correctly */
-        transition: transform 0.5s ease; /* Smooth transition for zoom effect */
-        cursor: pointer; /* Indicate clickable items */
-    }
-    .gallery img {
-        max-width: 100%; /* Ensure image is not larger than its container */
-        height: auto; /* Maintain aspect ratio */
-        display: block;
-    }
-    .gallery a:hover {
-        transform: scale(1.01);
-        z-index: 10; /* Bring to the forefront */
-    }
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-        display: none; /* Hidden by default */
-        z-index: 5; /* Ensure it's below the hovered image but above others */
-    }
-    .gallery a:hover ~ .overlay {
-        display: block; /* Show overlay when any image is hovered */
-    }
+        :root {
+                --scale-factor: 0.65; /* Default scale factor */
+            }
 
-      /* #lightbox {
-          position: fixed;
+            .gallery {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px; /* Adjust the space between images */
+          justify-content: center; /* Center items in the container */
+          position: relative; /* Required for positioning the overlay */
+      }
+      .gallery a {
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          transition: transform 0.2s ease-in-out, z-index 0.2s ease-in-out;
+          display: inline-flex; /* Change to inline-flex for a more organic layout */
+          margin: 5px; /* Optional: Adjust margin for spacing */
+          transform: scale(var(--scale-factor)); /* Use the scale factor here */
+          position: relative; /* Ensure z-index is applied correctly */
+          transition: transform 0.5s ease; /* Smooth transition for zoom effect */
+          cursor: pointer; /* Indicate clickable items */
+      }
+      .gallery img {
+          max-width: 100%; /* Ensure image is not larger than its container */
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+      }
+      .gallery a:hover {
+          transform: scale(1.01);
+          z-index: 10; /* Bring to the forefront */
+      }
+      .overlay {
+          position: absolute;
           top: 0;
           left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.8);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+          display: none; /* Hidden by default */
+          z-index: 5; /* Ensure it's below the hovered image but above others */
       }
-      #lightbox-img {
-          max-width: 80%;
-          max-height: 80%;
-          margin: auto; /* Center the image within the lightbox */
-      
-      */
+      .gallery a:hover ~ .overlay {
+          display: block; /* Show overlay when any image is hovered */
+      }
+
+        /* #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        #lightbox-img {
+            max-width: 80%;
+            max-height: 80%;
+            margin: auto; /* Center the image within the lightbox */
+
+        */
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="gallery" id="gallery">
+      <!-- Images will be added here by JavaScript -->
+      <div class="overlay"></div>
+      <!-- Overlay added here -->
+    </div>
 
-<div class="gallery" id="gallery">
-    <!-- Images will be added here by JavaScript -->
-    <div class="overlay"></div> <!-- Overlay added here -->
-</div>
+    <div id="lightbox" style="display: none" onclick="closeLightbox()">
+      <img id="lightbox-img" src="" alt="Zoomed image" />
+    </div>
 
-<div id="lightbox" style="display:none;" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="Zoomed image">
-</div>
-
-
-<script src="zoomwall.js"></script>
-<script>
-
-  function setScaleFactor(scale) {
-          document.documentElement.style.setProperty('--scale-factor', scale);
+    <script src="zoomwall.js"></script>
+    <script>
+      function setScaleFactor(scale) {
+        document.documentElement.style.setProperty("--scale-factor", scale);
       }
-        setScaleFactor(1); // Initialize with default scale factor. Change as needed.
+      setScaleFactor(1); // Initialize with default scale factor. Change as needed.
 
-  window.onload = function() {
-      const gallery = document.getElementById('gallery');
-      const totalImages = 42; // Update this number based on the actual number of images
+      window.onload = function () {
+        const gallery = document.getElementById("gallery");
+        const totalImages = 42; // Update this number based on the actual number of images
 
-      for(let i = 1; i <= totalImages; i++) {
-          const a = document.createElement('a');
-          const img = document.createElement('img');
+        for (let i = 1; i <= totalImages; i++) {
+          const a = document.createElement("a");
+          const img = document.createElement("img");
           const imgPath = `media/${i}.gif`;
 
           a.href = imgPath;
@@ -111,47 +109,51 @@
           //     event.preventDefault(); // Prevent default behavior
           //     openLightbox(img.src);
           // };
-      }
+        }
 
-      zoomwall.create(gallery, false); // Initialize Zoomwall.js after adding images
+        zoomwall.create(gallery, false); // Initialize Zoomwall.js after adding images
 
-      setScaleFactor(0.65); // Initialize with default scale factor. Change as needed.
+        setScaleFactor(0.65); // Initialize with default scale factor. Change as needed.
 
-
-          // Click event for zooming directly in the gallery
-    document.querySelectorAll('.gallery a').forEach(item => {
-        item.onclick = function(event) {
+        // Click event for zooming directly in the gallery
+        document.querySelectorAll(".gallery a").forEach((item) => {
+          item.onclick = function (event) {
             event.preventDefault(); // Prevent default link behavior
 
             // Toggle zoom
-            if (this.style.transform === 'scale(1.5)') {
-                this.style.transform = 'scale(1)'; // Zoom out if already zoomed in
+            if (this.style.transform === "scale(1.5)") {
+              this.style.transform = "scale(1)"; // Zoom out if already zoomed in
             } else {
-                // Reset all other images
-                document.querySelectorAll('.gallery a').forEach(el => el.style.transform = 'scale(1)');
-                this.style.transform = 'scale(1.5)'; // Zoom in the clicked image
+              // Reset all other images
+              document
+                .querySelectorAll(".gallery a")
+                .forEach((el) => (el.style.transform = "scale(1)"));
+              this.style.transform = "scale(1.5)"; // Zoom in the clicked image
             }
-        };
-    });
+          };
+        });
 
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".gallery a")) {
+            // Clicked outside of gallery images, reset all transformations
+            document
+              .querySelectorAll(".gallery a")
+              .forEach((el) => (el.style.transform = "scale(1)"));
+          }
+        });
+      };
 
+      function openLightbox(src) {
+        const lightboxImage = document.getElementById("lightbox-img");
+        const lightbox = document.getElementById("lightbox");
+        lightboxImage.src = src;
+        lightbox.style.display = "flex"; // Show the lightbox
+      }
 
-};
-
-function openLightbox(src) {
-      const lightboxImage = document.getElementById('lightbox-img');
-      const lightbox = document.getElementById('lightbox');
-      lightboxImage.src = src;
-      lightbox.style.display = 'flex'; // Show the lightbox
-  }
-
-  function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      lightbox.style.display = 'none'; // Hide the lightbox
-  }
-</script>
-
-
-
-</body>
+      function closeLightbox() {
+        const lightbox = document.getElementById("lightbox");
+        lightbox.style.display = "none"; // Hide the lightbox
+      }
+    </script>
+  </body>
 </html>
