@@ -11,27 +11,44 @@
               --scale-factor: 0.75; /* Default scale factor */
           }
           
-      .gallery {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px; /* Adjust the space between images */
-          justify-content: center; /* Center items in the container */
-      }
-      .gallery a {
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          transition: transform 0.2s ease-in-out;
-          display: inline-flex; /* Change to inline-flex for a more organic layout */
-          margin: 5px; /* Optional: Adjust margin for spacing */
-          transform: scale(var(--scale-factor)); /* Use the scale factor here */
-      }
-      .gallery img {
-          max-width: 100%; /* Ensure image is not larger than its container */
-          height: auto; /* Maintain aspect ratio */
-          display: block;
-      }
-      .gallery a:hover {
-          transform: scale(1.5);
-      }
+          .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Adjust the space between images */
+        justify-content: center; /* Center items in the container */
+        position: relative; /* Required for positioning the overlay */
+    }
+    .gallery a {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease-in-out, z-index 0.2s ease-in-out;
+        display: inline-flex; /* Change to inline-flex for a more organic layout */
+        margin: 5px; /* Optional: Adjust margin for spacing */
+        transform: scale(var(--scale-factor)); /* Use the scale factor here */
+        position: relative; /* Ensure z-index is applied correctly */
+    }
+    .gallery img {
+        max-width: 100%; /* Ensure image is not larger than its container */
+        height: auto; /* Maintain aspect ratio */
+        display: block;
+    }
+    .gallery a:hover {
+        transform: scale(1.5);
+        z-index: 10; /* Bring to the forefront */
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+        display: none; /* Hidden by default */
+        z-index: 5; /* Ensure it's below the hovered image but above others */
+    }
+    .gallery a:hover ~ .overlay {
+        display: block; /* Show overlay when any image is hovered */
+    }
+
       #lightbox {
           position: fixed;
           top: 0;
@@ -55,6 +72,7 @@
 
 <div class="gallery" id="gallery">
     <!-- Images will be added here by JavaScript -->
+    <div class="overlay"></div> <!-- Overlay added here -->
 </div>
 
 <div id="lightbox" style="display:none;" onclick="closeLightbox()">
