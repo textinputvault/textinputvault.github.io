@@ -6,6 +6,11 @@
     <title>Image Gallery with Zoomwall.js</title>
     <link rel="stylesheet" href="zoomwall.css" />
     <style>
+
+      :root {
+              --scale-factor: 0.75; /* Default scale factor */
+          }
+          
       .gallery {
           display: flex;
           flex-wrap: wrap;
@@ -17,6 +22,7 @@
           transition: transform 0.2s ease-in-out;
           display: inline-flex; /* Change to inline-flex for a more organic layout */
           margin: 5px; /* Optional: Adjust margin for spacing */
+          transform: scale(var(--scale-factor)); /* Use the scale factor here */
       }
       .gallery img {
           max-width: 100%; /* Ensure image is not larger than its container */
@@ -58,6 +64,12 @@
 
 <script src="zoomwall.js"></script>
 <script>
+
+  function setScaleFactor(scale) {
+          document.documentElement.style.setProperty('--scale-factor', scale);
+      }
+        setScaleFactor(1); // Initialize with default scale factor. Change as needed.
+
   window.onload = function() {
       const gallery = document.getElementById('gallery');
       const totalImages = 42; // Update this number based on the actual number of images
@@ -81,6 +93,10 @@
       }
 
       zoomwall.create(gallery, false); // Initialize Zoomwall.js after adding images
+
+      setScaleFactor(0.75); // Initialize with default scale factor. Change as needed.
+
+
 };
 
 function openLightbox(src) {
