@@ -8,7 +8,7 @@
     <style>
 
       :root {
-              --scale-factor: 0.75; /* Default scale factor */
+              --scale-factor: 0.65; /* Default scale factor */
           }
           
           .gallery {
@@ -25,6 +25,8 @@
         margin: 5px; /* Optional: Adjust margin for spacing */
         transform: scale(var(--scale-factor)); /* Use the scale factor here */
         position: relative; /* Ensure z-index is applied correctly */
+        transition: transform 0.5s ease; /* Smooth transition for zoom effect */
+        cursor: pointer; /* Indicate clickable items */
     }
     .gallery img {
         max-width: 100%; /* Ensure image is not larger than its container */
@@ -49,7 +51,7 @@
         display: block; /* Show overlay when any image is hovered */
     }
 
-      #lightbox {
+      /* #lightbox {
           position: fixed;
           top: 0;
           left: 0;
@@ -65,7 +67,8 @@
           max-width: 80%;
           max-height: 80%;
           margin: auto; /* Center the image within the lightbox */
-      }   
+      
+      */
     </style>
 </head>
 <body>
@@ -104,15 +107,33 @@
           a.appendChild(img);
           gallery.appendChild(a);
 
-          a.onclick = function(event) {
-              event.preventDefault(); // Prevent default behavior
-              openLightbox(img.src);
-          };
+          // a.onclick = function(event) {
+          //     event.preventDefault(); // Prevent default behavior
+          //     openLightbox(img.src);
+          // };
       }
 
       zoomwall.create(gallery, false); // Initialize Zoomwall.js after adding images
 
-      setScaleFactor(0.75); // Initialize with default scale factor. Change as needed.
+      setScaleFactor(0.65); // Initialize with default scale factor. Change as needed.
+
+
+          // Click event for zooming directly in the gallery
+    document.querySelectorAll('.gallery a').forEach(item => {
+        item.onclick = function(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Toggle zoom
+            if (this.style.transform === 'scale(1.5)') {
+                this.style.transform = 'scale(1)'; // Zoom out if already zoomed in
+            } else {
+                // Reset all other images
+                document.querySelectorAll('.gallery a').forEach(el => el.style.transform = 'scale(1)');
+                this.style.transform = 'scale(1.5)'; // Zoom in the clicked image
+            }
+        };
+    });
+
 
 
 };
