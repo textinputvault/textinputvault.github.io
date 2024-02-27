@@ -1,115 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Gallery with Enhanced Zoom</title>
-    <link rel="stylesheet" href="zoomwall.css" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
+    <title>zoomwall.js</title>
+    <link rel="stylesheet" type="text/css" href="./lib/zoomwall.css" />
     <style>
-      :root {
-        --scale-factor: 0.65; /* Default scale factor, adjust as needed */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
       }
-      .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        position: relative;
+      body {
+        background-color: black;
       }
-      .gallery a {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out, z-index 0.2s;
-        display: inline-flex;
-        margin: 5px;
-        transform: scale(var(--scale-factor));
-        position: relative;
-        cursor: pointer;
-        z-index: 1;
+      header {
+        padding: 1em;
+        background-color: #333;
+        text-align: center;
       }
-      .gallery img {
-        max-width: 100%;
-        height: auto;
-        display: block;
+      a:link,
+      a:visited {
+        text-decoration: none;
+        font-family: sans-serif;
+        color: white;
       }
-      /* Enhanced zoom effect on hover */
-      .gallery a:hover {
-        transform: scale(1.01);
-        z-index: 10;
+      a:hover {
+        color: #ddd;
       }
-      /* Overlay for additional UI effects (optional) */
-      .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        z-index: 5;
+      #author {
+        float: left;
+      }
+      #repo {
+        float: right;
+      }
+      #title {
+        display: inline-block;
+        font-weight: bold;
       }
     </style>
-  </head>
-  <body>
-    <div class="gallery" id="gallery">
-      <div class="overlay"></div>
-    </div>
 
-    <script src="zoomwall.js"></script>
-    <script>
-      function setScaleFactor(scale) {
-        document.documentElement.style.setProperty("--scale-factor", scale);
-      }
+    <script type="module">
+      import * as zoomwall from "./lib/zoomwall.js";
 
       window.onload = function () {
-        const gallery = document.getElementById("gallery");
-        const imageTypes = ["gif", "png", "jpeg", "jpg", "tiff"]; // Add more types if needed
-        const totalImages = 42; // Update based on actual number of images
-
-        for (let i = 1; i <= totalImages; i++) {
-          imageTypes.forEach((type) => {
-            const imgPath = `media/${i}.${type}`;
-            const a = document.createElement("a");
-            const img = document.createElement("img");
-
-            img.src = imgPath;
-            img.alt = `Image ${i}`;
-            img.onerror = function () {
-              this.style.display = "none";
-            }; // Hide if the image can't be loaded
-
-            a.appendChild(img);
-            gallery.appendChild(a);
-          });
-        }
-
-        zoomwall.create(gallery, false);
-
-        setScaleFactor(0.65); // Reset scale factor if needed
-
-        // Enhanced zoom functionality
-        document.querySelectorAll(".gallery a").forEach((item) => {
-          item.onclick = function (event) {
-            event.preventDefault(); // Prevent default link behavior
-            const isZoomed = this.style.transform === "scale(1.5)";
-            // Reset all images
-            document
-              .querySelectorAll(".gallery a")
-              .forEach((el) => (el.style.transform = "scale(1)"));
-            // Toggle zoom
-            this.style.transform = isZoomed ? "scale(1)" : "scale(1.5)";
-            this.style.zIndex = isZoomed ? 1 : 10; // Adjust z-index to bring the image to front
-          };
-        });
-
-        // Click outside to zoom out
-        document.addEventListener("click", function (e) {
-          if (!e.target.closest(".gallery a")) {
-            document
-              .querySelectorAll(".gallery a")
-              .forEach((el) => (el.style.transform = "scale(1)"));
-          }
-        });
+        zoomwall.create(document.getElementById("zoomwall"), true);
+        loadImages();
       };
+
+      function loadImages() {
+        fetch("./images.json") // Adjust the path to where your JSON file is stored
+          .then((response) => response.json())
+          .then((images) => {
+            const container = document.getElementById("zoomwall");
+            images.forEach((image) => {
+              const img = document.createElement("img");
+              img.src = `./media/${image.name}_${image.size}.${image.format}`;
+              if (image.size === "250") {
+                // Assuming '250' is your thumbnail size
+                const highresImage = images.find(
+                  (img) => img.name === image.name && img.size !== "250"
+                );
+                if (highresImage) {
+                  img.dataset.highres = `./media/${highresImage.name}_${highresImage.size}.${highresImage.format}`;
+                }
+              }
+              container.appendChild(img);
+            });
+          })
+          .catch((error) => console.error("Error loading images:", error));
+      }
     </script>
+  </head>
+  <body>
+    <header>
+      <a id="author" href="http://ericleong.me">photos by eric leong</a>
+      <a id="repo" href="https://github.com/ericleong/zoomwall.js">github</a>
+      <a id="title" href="https://github.com/ericleong/zoomwall.js"
+        >zoomwall.js</a
+      >
+    </header>
+    <div id="zoomwall" class="zoomwall">
+      <!-- Images will be loaded here by JavaScript -->
+    </div>
   </body>
 </html>
