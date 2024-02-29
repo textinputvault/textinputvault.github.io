@@ -1,89 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Gallery</title>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-      }
-      .gallery {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .gallery img {
-        transition: transform 0.5s ease;
-      }
-      .zoomed {
-        position: fixed;
-        z-index: 10;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        transform: scale(2);
-      }
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 5;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="gallery"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Gallery</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Center align images horizontally */
+      align-items: center; /* Center align images vertically */
+    }
+    .gallery img {
+      transition: transform 0.5s ease;
+      max-width: 100%;
+      display: block; /* Ensure images are treated as block elements */
+      margin: auto; /* Center align images horizontally */
+    }
+    .zoomed {
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      transform: scale(2);
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery"></div>
 
-    <script>
-      const gallery = document.querySelector(".gallery");
-      let zoomed = false;
+  <script>
+    const gallery = document.querySelector(".gallery");
+    let zoomed = false;
 
-      const imageFormats = ["jpg", "png", "gif", "tiff"]; // Add or remove formats as needed
-      const totalImages = 42; // Set the total number of images
+    const imageFormats = ["jpg", "png", "gif", "tiff"]; // Add or remove formats as needed
+    const totalImages = 42; // Set the total number of images
 
-      for (let i = 1; i <= totalImages; i++) {
-        imageFormats.forEach((format) => {
-          const imgPath = `media/${i}.${format}`;
-          const img = new Image();
-          img.onload = () => {
-            img.style.maxWidth = "100%";
-            gallery.appendChild(img);
-          };
-          img.onerror = () => {
-            // Handle the error if the file does not exist
-          };
-          img.src = imgPath;
-          img.addEventListener("click", (e) => {
-            if (!zoomed) {
-              e.target.classList.add("zoomed");
-              document.body.appendChild(
-                document.createElement("div")
-              ).className = "overlay";
-              zoomed = true;
-            } else {
-              document.querySelector(".zoomed").classList.remove("zoomed");
-              document.querySelector(".overlay").remove();
-              zoomed = false;
-            }
-          });
+    for (let i = 1; i <= totalImages; i++) {
+      imageFormats.forEach((format) => {
+        const imgPath = `media/${i}.${format}`;
+        const img = new Image();
+        img.onload = () => {
+          gallery.appendChild(img);
+        };
+        img.onerror = () => {
+          // Handle the error if the file does not exist
+        };
+        img.src = imgPath;
+        img.addEventListener("click", (e) => {
+          if (!zoomed) {
+            e.target.classList.add("zoomed");
+            document.body.appendChild(
+              document.createElement("div")
+            ).className = "overlay";
+            zoomed = true;
+          } else {
+            document.querySelector(".zoomed").classList.remove("zoomed");
+            document.querySelector(".overlay").remove();
+            zoomed = false;
+          }
         });
-      }
-
-      document.addEventListener("click", function (e) {
-        if (zoomed && !e.target.matches("img")) {
-          document.querySelector(".zoomed").classList.remove("zoomed");
-          document.querySelector(".overlay").remove();
-          zoomed = false;
-        }
       });
-    </script>
-  </body>
+    }
+
+    document.addEventListener("click", function (e) {
+      if (zoomed && !e.target.matches("img")) {
+        document.querySelector(".zoomed").classList.remove("zoomed");
+        document.querySelector(".overlay").remove();
+        zoomed = false;
+      }
+    });
+  </script>
+</body>
 </html>
