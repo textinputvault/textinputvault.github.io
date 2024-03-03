@@ -6,171 +6,83 @@
       name="viewport"
       content="initial-scale=1.0, user-scalable=no, width=device-width"
     />
-
     <title>textinputvault</title>
-
-    <link rel="stylesheet" type="text/css" href="./zoomwall.css" />
-
+    <link rel="stylesheet" href="./zoomwall.css" />
     <style>
       html,
       body {
         margin: 0;
         padding: 0;
       }
-
       body {
         background-color: black;
       }
-
       header {
         padding: 1em;
         background-color: #333;
         text-align: center;
       }
-
       a:link,
       a:visited {
         text-decoration: none;
-        font-family: sans-serif;
         color: white;
       }
-
       a:hover {
         color: #ddd;
       }
-
       #author {
         float: left;
       }
-
       #repo {
         float: right;
       }
-
       #title {
         display: inline-block;
         font-weight: bold;
       }
     </style>
-
+  </head>
+  <body>
+    <header>
+      <a id="author" href="http://textinputvault.github.io">textinput vault</a>
+      <a id="repo" href="https://github.com/textinputvault"
+        >submit your textinput technique</a
+      >
+      <a id="title" href="https://github.com/textinputvault"
+        >A keyboard for XR to augment the human</a
+      >
+    </header>
+    <div id="zoomwall" class="zoomwall">
+      <!-- Images will be loaded here -->
+    </div>
     <script type="module">
       import * as zoomwall from "./zoomwall.js";
 
-      window.onload = function () {
-        zoomwall.create(document.getElementById("zoomwall"), true);
-      };
+      async function loadImages() {
+        try {
+          const response = await fetch("./imageList.json");
+          if (!response.ok) throw new Error("Failed to fetch image list");
+          const imageFilenames = await response.json();
+          const imageContainer = document.getElementById("zoomwall");
+
+          imageFilenames.forEach((filename) => {
+            const img = document.createElement("img");
+            img.setAttribute("src", `./media/${filename}`);
+            img.setAttribute(
+              "srcset",
+              `./media/${filename} 250w, ./media/${filename} 1280w`
+            );
+            img.setAttribute("sizes", "(max-width: 1280px) 250px, 1280px");
+            imageContainer.appendChild(img);
+          });
+
+          zoomwall.create(document.getElementById("zoomwall"), true);
+        } catch (error) {
+          console.error("Error loading images:", error);
+        }
+      }
+
+      window.onload = loadImages;
     </script>
-  </head>
-
-  <body>
-    <header>
-      <a id="author" href="http://textinputvault.github.io"
-        >textinputvault team</a
-      ><a id="repo" href="https://github.com/textinputvault">github</a
-      ><a id="title" href="https://github.com/textinputvault">textinputvault</a>
-    </header>
-
-    <div id="zoomwall" class="zoomwall">
-      <img
-        srcset="./media/1.gif 250w, ./media/1.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/1.gif"
-      />
-      <img
-        srcset="./media/2.gif 250w, ./media/2.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/2.gif"
-      />
-      <img
-        srcset="./media/3.gif 250w, ./media/3.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/3.gif"
-      />
-      <img
-        srcset="./media/4.gif 250w, ./media/4.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/4.gif"
-      />
-      <img
-        srcset="./media/5.gif 250w, ./media/5.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/5.gif"
-      />
-      <img
-        srcset="./media/6.gif 250w, ./media/6.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/6.gif"
-      />
-      <img
-        srcset="./media/7.gif 250w, ./media/7.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/7.gif"
-      />
-      <img
-        srcset="./media/8.gif 250w, ./media/8.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/8.gif"
-      />
-      <img
-        srcset="./media/9.gif 250w, ./media/9.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/9.gif"
-      />
-      <img
-        srcset="./media/10.gif 250w, ./media/10.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/10.gif"
-      />
-      <img
-        srcset="./media/11.gif 250w, ./media/11.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/11.gif"
-      />
-      <img
-        srcset="./media/12.gif 250w, ./media/12.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/12.gif"
-      />
-      <img
-        srcset="./media/13.gif 250w, ./media/13.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/13.gif"
-      />
-      <img
-        srcset="./media/14.gif 250w, ./media/14.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/14.gif"
-      />
-      <img
-        srcset="./media/15.gif 250w, ./media/15.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/15.gif"
-      />
-      <img
-        srcset="./media/16.gif 250w, ./media/16.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/16.gif"
-      />
-      <img
-        srcset="./media/17.gif 250w, ./media/17.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/17.gif"
-      />
-      <img
-        srcset="./media/18.gif 250w, ./media/18.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/18.gif"
-      />
-      <img
-        srcset="./media/19.gif 250w, ./media/19.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/19.gif"
-      />
-      <img
-        srcset="./media/20.gif 250w, ./media/20.gif 1280w"
-        sizes="(max-width: 1280px) 250px, 1280px"
-        src="./media/20.gif"
-      />
-    </div>
   </body>
 </html>
