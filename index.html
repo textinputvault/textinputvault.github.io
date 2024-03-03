@@ -1,93 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Gallery</title>
-  <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center; /* Center align images horizontally */
-      align-items: center; /* Center align images vertically */
-    }
-    .gallery img {
-      transition: transform 0.5s ease;
-      max-width: 100%;
-      display: block; /* Ensure images are treated as block elements */
-      margin: auto; /* Center align images horizontally */
-    }
-    .zoomed {
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      transform: scale(2);
-    }
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 5;
-    }
-  </style>
-</head>
-<body>
-  <div class="gallery"></div>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
 
-  <script>
-    const gallery = document.querySelector(".gallery");
-    let zoomed = false;
+    <title>zoomwall.js</title>
 
-    const imageFormats = ["jpg", "png", "gif", "tiff"]; // Add or remove formats as needed
-    const totalImages = 42; // Set the total number of images
+    <link rel="stylesheet" type="text/css" href="./lib/zoomwall.css" />
 
-    for (let i = 1; i <= totalImages; i++) {
-      imageFormats.forEach((format) => {
-        const imgPath = `media/${i}.${format}`;
-        const img = new Image();
-        img.onload = () => {
-          gallery.appendChild(img);
-        };
-        img.onerror = () => {
-          // Handle the error if the file does not exist
-        };
-        img.src = imgPath;
-        img.addEventListener("click", (e) => {
-          if (!zoomed) {
-            e.target.classList.add("zoomed");
-            document.body.appendChild(
-              document.createElement("div")
-            ).className = "overlay";
-            zoomed = true;
-          } else {
-            document.querySelector(".zoomed").classList.remove("zoomed");
-            document.querySelector(".overlay").remove();
-            zoomed = false;
-          }
-        });
-      });
-    }
-
-    document.addEventListener("click", function (e) {
-      if (zoomed && !e.target.matches("img")) {
-        document.querySelector(".zoomed").classList.remove("zoomed");
-        document.querySelector(".overlay").remove();
-        zoomed = false;
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
       }
-    });
-  </script>
-</body>
+
+      body {
+        background-color: black;
+      }
+
+      header {
+        padding: 1em;
+        background-color: #333;
+        text-align: center;
+      }
+
+      a:link,
+      a:visited {
+        text-decoration: none;
+        font-family: sans-serif;
+        color: white;
+      }
+
+      a:hover {
+        color: #ddd;
+      }
+
+      #author {
+        float: left;
+      }
+
+      #repo {
+        float: right;
+      }
+
+      #title {
+        display: inline-block;
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="module">
+      import * as zoomwall from "./lib/zoomwall.js";
+
+      window.onload = function () {
+        zoomwall.create(document.getElementById("zoomwall"), true);
+      };
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <a id="author" href="http://ericleong.me">photos by eric leong</a
+      ><a id="repo" href="https://github.com/ericleong/zoomwall.js">github</a
+      ><a id="title" href="https://github.com/ericleong/zoomwall.js"
+        >zoomwall.js</a
+      >
+    </header>
+
+    <div id="zoomwall" class="zoomwall">
+      <img
+        srcset="./media/1_250.gif 250w, ./media/1_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/1_250.gif"
+      />
+      <img
+        srcset="./media/2_250.gif 250w, ./media/2_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/2_250.gif"
+      />
+      <img
+        srcset="./media/3_250.gif 250w, ./media/3_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/3_250.gif"
+      />
+      <img
+        srcset="./media/4_250.gif 250w, ./media/4_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/4_250.gif"
+      />
+      <img
+        srcset="./media/5_250.gif 250w, ./media/5_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/5_250.gif"
+      />
+      <img
+        srcset="./media/6_250.gif 250w, ./media/6_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/6_250.gif"
+      />
+      <img
+        srcset="./media/7_250.gif 250w, ./media/7_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/7_250.gif"
+      />
+      <img
+        srcset="./media/8_250.gif 250w, ./media/8_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/8_250.gif"
+      />
+      <img
+        srcset="./media/10_250.gif 250w, ./media/10_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/10_250.gif"
+      />
+      <img
+        srcset="./media/12_250.gif 250w, ./media/12_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/12_250.gif"
+      />
+      <img
+        srcset="./media/13_250.gif 250w, ./media/13_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/13_250.gif"
+      />
+      <img
+        srcset="./media/14_250.gif 250w, ./media/14_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/14_250.gif"
+      />
+      <img
+        srcset="./media/15_250.gif 250w, ./media/15_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/15_250.gif"
+      />
+      <img
+        srcset="./media/16_250.gif 250w, ./media/16_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/16_250.gif"
+      />
+      <img
+        srcset="./media/17_250.gif 250w, ./media/17_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/17_250.gif"
+      />
+      <img
+        srcset="./media/18_250.gif 250w, ./media/18_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/18_250.gif"
+      />
+      <img
+        srcset="./media/19_250.gif 250w, ./media/19_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/19_250.gif"
+      />
+      <img
+        srcset="./media/20_250.gif 250w, ./media/20_1280.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/20_250.gif"
+      />
+    </div>
+  </body>
 </html>
