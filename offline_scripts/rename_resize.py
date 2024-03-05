@@ -27,18 +27,18 @@ def rename_and_resize_images(directory):
         extension = os.path.splitext(filename)[1].lower()
 
         # Full resolution image path
-        full_res_filename = f"{i}_1280{extension}"
+        full_res_filename = f"{i}_highres{extension}"
         full_res_path = os.path.join(directory, full_res_filename)
 
         # Low resolution image path
-        low_res_filename = f"{i}_250{extension}"
+        low_res_filename = f"{i}_lowres{extension}"
         low_res_path = os.path.join(directory, low_res_filename)
 
         # Save full resolution image
         resize_and_save_image(old_path, full_res_path)
 
         # Save low resolution image (scale_factor of 5)
-        resize_and_save_image(old_path, low_res_path, scale_factor=5)
+        resize_and_save_image(old_path, low_res_path, scale_factor=3)
 
         print(f"Processed {filename}: Full res -> {full_res_filename}, Low res -> {low_res_filename}")
 

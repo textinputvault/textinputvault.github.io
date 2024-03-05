@@ -1,5 +1,8 @@
 import os
 import uuid
+import numpy as np
+import random
+import string
 
 def rename_images(directory):
     # Define a list of image file extensions to include
@@ -33,8 +36,10 @@ def rename_images(directory):
         # Extract original extension
         original_extension = os.path.splitext(temp_filename)[1].lower()
         
+        fileName = ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+
         # Construct new filename with the original extension
-        new_filename = f"{i}{original_extension}"
+        new_filename = f"{i}{fileName}{original_extension}"
         
         # Construct full file paths
         temp_path = os.path.join(directory, temp_filename)
@@ -44,6 +49,7 @@ def rename_images(directory):
         os.rename(temp_path, new_path)
         print(f"Renamed {temp_filename} to {new_filename}")
 
-# Replace 'path/to/your/folder' with the path to the folder containing your images
-directory_path = 'C:/Users/DanHQ/Downloads/all_gifs_skipped/'
+# Replace 'path/to/your/folder' with the path to the folder containing your image
+N = 10
+directory_path = 'H:/Project/textinputvault.github.io/media/'
 rename_images(directory_path)
