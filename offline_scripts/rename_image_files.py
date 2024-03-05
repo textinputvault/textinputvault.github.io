@@ -45,5 +45,5 @@ def rename_images(directory):
         print(f"Renamed {temp_filename} to {new_filename}")
 
 # Replace 'path/to/your/folder' with the path to the folder containing your images
-directory_path = 'C:/Users/Monter/Projects/textinputvault.github.io/media/'
+directory_path = 'C:/Users/DanHQ/Downloads/all_gifs_skipped/'
 rename_images(directory_path)
