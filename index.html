@@ -68,8 +68,8 @@
         const zoomwallDiv = document.getElementById("zoomwall");
 
         for (let i = 0; i < imageList.length; i += 2) {
-          const lowres = imageList[i];
-          const highres = imageList[i + 1];
+          const highres = imageList[i];
+          const lowres = imageList[i + 1];
           const imgElement = `<img srcset="./media/${lowres} 250w, ./media/${highres} 1280w" sizes="(max-width: 1280px) 250px, 1280px" src="./media/${lowres}" />`;
           zoomwallDiv.insertAdjacentHTML("beforeend", imgElement);
         }

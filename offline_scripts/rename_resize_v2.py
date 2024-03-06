@@ -1,23 +1,6 @@
 import os
 from PIL import Image, ImageSequence
 
-# def resize_gif(original_path, output_path, scale_factor=None):
-#     # Open the original GIF
-#     with Image.open(original_path) as img:
-#         # Create a list to hold the resized frames
-#         frames = []
-#         for frame in ImageSequence.Iterator(img):
-#             # Resize each frame
-#             if scale_factor is not None:
-#                 new_size = (frame.width // scale_factor, frame.height // scale_factor)
-#                 resized_frame = frame.resize(new_size, Image.Resampling.LANCZOS)
-#             else:
-#                 resized_frame = frame.copy()
-#             frames.append(resized_frame)
-
-#         # Save the frames as a new GIF
-#         frames[0].save(output_path, save_all=True, append_images=frames[1:], loop=0, duration=img.info['duration'], optimize=False)
-
 def resize_gif(original_path, output_path, scale_factor=None):
     # Open the original GIF
     with Image.open(original_path) as img:
