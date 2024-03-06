@@ -77,7 +77,12 @@
         zoomwall.create(document.getElementById("zoomwall"), true);
       }
 
-      window.onload = loadImages;
+      // Reloading logic
+      if (!window.location.search.includes("r=1")) {
+        window.location.search += "&r=1";
+      } else {
+        window.onload = loadImages;
+      }
     </script>
   </body>
 </html>

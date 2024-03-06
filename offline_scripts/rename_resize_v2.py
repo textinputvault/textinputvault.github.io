@@ -75,7 +75,7 @@ def rename_and_resize_images(directory):
         resize_and_save_image(old_path, full_res_path)
 
         # Save low resolution image (scale_factor of 3 for example)
-        resize_and_save_image(old_path, low_res_path, scale_factor=3)
+        resize_and_save_image(old_path, low_res_path, scale_factor=2)
 
         print(f"Processed {filename}: Full res -> {full_res_filename}, Low res -> {low_res_filename}")
 
