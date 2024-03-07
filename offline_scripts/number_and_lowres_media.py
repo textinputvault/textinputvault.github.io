@@ -47,11 +47,11 @@ def rename_and_resize_images(directory):
         extension = os.path.splitext(filename)[1].lower()
 
         # Full resolution image path
-        full_res_filename = f"{i}_highres{extension}"
+        full_res_filename = f"{i+img_numb_offset}_highres{extension}"
         full_res_path = os.path.join(directory, full_res_filename)
 
         # Low resolution image path
-        low_res_filename = f"{i}_lowres{extension}"
+        low_res_filename = f"{i+img_numb_offset}_lowres{extension}"
         low_res_path = os.path.join(directory, low_res_filename)
 
         # Save full resolution image
@@ -63,5 +63,9 @@ def rename_and_resize_images(directory):
         print(f"Processed {filename}: Full res -> {full_res_filename}, Low res -> {low_res_filename}")
 
 # Replace 'directory_path' with the path to the folder containing your images
-directory_path = 'H:/Project/textinputvault.github.io/media/'
+newPath = input('path: ')
+# Compute image number offset i.e. count how many images already exist in the media folder to avoid overwriting them 
+os.chdir("../media")
+img_numb_offset = len(os.listdir())/2 + 1
+directory_path = newPath
 rename_and_resize_images(directory_path)

@@ -2,7 +2,8 @@ import os
 import json
 
 # Define the path to your media folder
-media_folder = 'H:/Project/textinputvault.github.io/media/'
+newPath = input('path: ')
+media_folder = newPath 
 
 # Define the path for the output JSON file
 output_json_file = 'imageList.json'
