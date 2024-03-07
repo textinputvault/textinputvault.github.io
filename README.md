@@ -26,11 +26,11 @@ After processing your images, the next step is to update the gallery's index fil
 
 a. Still within the `offline_scripts` folder, run the `imageList_generator.py` Python script. This script updates the `imageList.json` file, which serves as the gallery's index, with the details of the newly added images.
 
-b. Copy the newly generated "imageList.json" file from the `offline_scripts` folder into the root directory of this repository.
+b. Copy the newly generated `imageList.json` file from the `offline_scripts` folder into the root directory of this repository.
 
 c. Copy your newly renamed and lowres images to the media folder so that they can be automatically displayed into the gallery.
 
-In future we would like to make the imageList.json file more sophisticated in order to hold more information about each text input technique image for use in more interesting data analysis.
+In future we would like to make the `imageList.json` file more sophisticated in order to hold more information about each text input technique image for use in more interesting data analysis.
 
 ## Contributing
 
