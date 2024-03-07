@@ -95,9 +95,9 @@
 
       // Modified page reloading logic with delay initially used "setInterval" but then changed to "setTimeout"
       if (!window.location.search.includes("r=1")) {
-        setInterval(function () {
+        setTimeout(function () {
           window.location.search += "&r=1";
-        }, 1500); // Delay reload by 1500 milliseconds
+        }, 10000); // Delay reload by 1500 milliseconds
       } else {
         window.onload = loadImages;
       }
