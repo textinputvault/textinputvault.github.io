@@ -59,6 +59,15 @@
       <!-- Images will be loaded here -->
     </div>
 
+    <footer>
+      <p>
+        What we see here is a collective of work, made by all the humans and HCI
+        scientist who have been thinking about the challenge of text input in XR
+        over decades. Once we have organized the techniques there will be actual
+        attribution of credits to each of the techniques. Stay tuned.
+      </p>
+    </footer>
+
     <script type="module">
       import * as zoomwall from "./zoomwall.js";
 
@@ -77,9 +86,11 @@
         zoomwall.create(document.getElementById("zoomwall"), true);
       }
 
-      // Reloading logic
+      // Modified page reloading logic with delay
       if (!window.location.search.includes("r=1")) {
-        window.location.search += "&r=1";
+        setTimeout(function () {
+          window.location.search += "&r=1";
+        }, 1500); // Delay reload by 1500 milliseconds
       } else {
         window.onload = loadImages;
       }
