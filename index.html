@@ -41,6 +41,13 @@
         display: inline-block;
         font-weight: bold;
       }
+      footer {
+        padding: 1em;
+        background-color: #222; /* Ensure contrast against the body's black background */
+        color: white; /* Ensures text is visible */
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
     </style>
   </head>
   <body>
@@ -86,9 +93,9 @@
         zoomwall.create(document.getElementById("zoomwall"), true);
       }
 
-      // Modified page reloading logic with delay
+      // Modified page reloading logic with delay initially used "setInterval" but then changed to "setTimeout"
       if (!window.location.search.includes("r=1")) {
-        setTimeout(function () {
+        setInterval(function () {
           window.location.search += "&r=1";
         }, 1500); // Delay reload by 1500 milliseconds
       } else {
