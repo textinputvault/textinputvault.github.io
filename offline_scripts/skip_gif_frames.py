@@ -18,9 +18,11 @@ def skip_frames_gif(input_gif_path, output_gif_path):
         )
 
 # Main 
-files = os.listdir()
-for file in files:
+myGifPath = input('path: ')
+files = os.listdir(myGifPath)
+for i, file in enumerate(files):
     if ".gif" in file:
         input_gif = file 
-        output_gif = 'C:/Users\DanHQ/Downloads/all_gifs_skipped/' + file + '_skip.gif'
-        skip_frames_gif(input_gif, output_gif)
+        output_gif = myGifPath + '/' + file + '_skip.gif'
+        skip_frames_gif(myGifPath + '/' +input_gif, output_gif)
+        print(str(i / len(files) * 100) + " %")
