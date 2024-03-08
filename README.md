@@ -32,6 +32,12 @@ c. Copy your newly renamed and lowres images to the media folder so that they ca
 
 In future we would like to make the `imageList.json` file more sophisticated in order to hold more information about each text input technique image for use in more interesting data analysis.
 
+### Step Optional: Reduce gif file sizes without affecting image resolution
+
+Some gif files can be quite large and cause long loading times in the gallery page. To mitigate this, one strategy is to remove animation frames from the gif sequence. For that purpose we have created a `skip_gif_frames.py` script that you can use on a folder with such large gif files.
+
+Once you have applied this script to your external folder with the large gif files, you would need to follow the above 3 steps in order to bring those new files into the gallery.
+
 ## Contributing
 
 Your contributions are what make the Text Input Vault for XR a valuable resource for the XR community. If you encounter any issues during the process or have suggestions on how to improve the gallery, please feel free to open an issue or submit a pull request.
