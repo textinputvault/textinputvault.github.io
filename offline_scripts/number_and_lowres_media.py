@@ -47,11 +47,11 @@ def rename_and_resize_images(directory):
         extension = os.path.splitext(filename)[1].lower()
 
         # Full resolution image path
-        full_res_filename = f"{i+img_numb_offset}_highres{extension}"
+        full_res_filename = f"{i+img_numb_offset + 1}_highres{extension}"
         full_res_path = os.path.join(directory, full_res_filename)
 
         # Low resolution image path
-        low_res_filename = f"{i+img_numb_offset}_lowres{extension}"
+        low_res_filename = f"{i+img_numb_offset + 1}_lowres{extension}"
         low_res_path = os.path.join(directory, low_res_filename)
 
         # Save full resolution image
