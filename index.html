@@ -113,14 +113,19 @@
           zoomwallDiv.insertAdjacentHTML("beforeend", imgElement);
         }
 
+            // Adding a delay of 2 seconds before initializing the zoomwall gallery
+    setTimeout(() => {
         zoomwall.create(document.getElementById("zoomwall"), true);
+    }, 2000); // 2000 milliseconds delay
+
+        // zoomwall.create(document.getElementById("zoomwall"), true);
       }
 
       // Modified page reloading logic with delay initially used "setInterval" but then changed to "setTimeout"
       if (!window.location.search.includes("r=1")) {
     setTimeout(function () {
         window.location.href = window.location.pathname + "?r=1";
-          }, 1); // Ensure this is a one-time redirect
+          }, 100); // Ensure this is a one-time redirect
       } else {
                 window.onload = loadImages; // Always initialize loading images
       }
