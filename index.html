@@ -120,7 +120,7 @@
       if (!window.location.search.includes("r=1")) {
     setTimeout(function () {
         window.location.href = window.location.pathname + "?r=1";
-          }, 5000); // Ensure this is a one-time redirect
+          }, 1); // Ensure this is a one-time redirect
       } else {
                 window.onload = loadImages; // Always initialize loading images
       }
