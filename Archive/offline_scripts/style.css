@@ -1,0 +1,30 @@
+#gallery-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 Columns */
+    gap: 10px; 
+  }
+  
+  .gallery-item {
+    position: relative; /* For positioning the title */
+    width: 210px; 
+    height: 150px; /* Title height (50px) + Image Height (100px) */ 
+  }
+  
+  .gallery-item img, 
+  .gallery-item video { 
+    width: 210px;
+    height: 100px;
+    object-fit: cover; /* For cropping */
+  } 
+  
+  .title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    padding: 5px;
+    text-align: center;
+  }
+  

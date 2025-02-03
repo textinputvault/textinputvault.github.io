@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, user-scalable=no, width=device-width"
+    />
+
+    <title>textinputvault</title>
+
+    <link rel="stylesheet" type="text/css" href="./zoomwall.css" />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: black;
+      }
+
+      header {
+        padding: 1em;
+        background-color: #333;
+        text-align: center;
+      }
+
+      a:link,
+      a:visited {
+        text-decoration: none;
+        font-family: sans-serif;
+        color: white;
+      }
+
+      a:hover {
+        color: #ddd;
+      }
+
+      #author {
+        float: left;
+      }
+
+      #repo {
+        float: right;
+      }
+
+      #title {
+        display: inline-block;
+        font-weight: bold;
+      }
+    </style>
+
+    <script type="module">
+      import * as zoomwall from "./zoomwall.js";
+
+      window.onload = function () {
+        zoomwall.create(document.getElementById("zoomwall"), true);
+      };
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <a id="author" href="http://textinputvault.github.io">textinputvault</a
+      ><a
+        id="repo"
+        href="https://docs.google.com/forms/d/e/1FAIpQLSckl-HZIULEDK4t7FpD6W0cUuPNE38dtZh6qPuwZZONCUF8tA/viewform?usp=sf_link"
+        >Add your technique</a
+      ><a id="title" href="https://github.com/textinputvault"
+        >A keyboard for XR to augment the human</a
+      >
+    </header>
+
+    <div id="zoomwall" class="zoomwall">
+      <img
+        srcset="./media/10_lowres.gif 250w, ./media/10_highres.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/10_lowres.gif"
+      />
+      <img
+        srcset="./media/11_lowres.gif 250w, ./media/11_highres.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/11_lowres.gif"
+      />
+      <img
+        srcset="./media/12_lowres.gif 250w, ./media/12_highres.gif 1280w"
+        sizes="(max-width: 1280px) 250px, 1280px"
+        src="./media/12_lowres.gif"
+      />
+    </div>
+  </body>
+</html>
